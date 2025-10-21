@@ -1,60 +1,54 @@
-# NLP learning
+# NLP learning — 仓库说明
 
-这是仓库中用于学习与演示自然语言处理（NLP）基础概念的 Jupyter notebooks 集合，主要使用 NLTK（英文处理）和 jieba（中文分词）。下面对每个 notebook 的功能做了简要说明，并包含运行所需的依赖与常见问题解决方法。
+这是一个用于学习与演示自然语言处理（NLP）基础概念的 Jupyter notebooks 集合，位于本目录（`NLP learning`）。主要演示英文处理（NLTK）与中文分词（jieba）相关的基础操作、可视化与小型示例脚本。README 目的是帮助你快速了解每个文件的功能、安装依赖、运行方法与常见错误的快速修复。
 
-## 包含的文件（及说明）
+目录结构（本目录下主要文件）
 
-- `NLP_token.ipynb`
-	- 功能：更聚焦的分词示例，包含 NLTK 的 `word_tokenize` 和 `jieba` 的示例，适合对比英文与中文分词效果。
-    - 亮点：已添加一个随机生成中英文混合文本的单元（用于测试）；对 ASCII（英文）片段使用 `nltk.word_tokenize`，对中文片段使用 `jieba.lcut`。
+- `custom_dict.txt` — 自定义词典（用于 jieba 的扩展词表）。
+- `stopwords.txt` — 自定义停用词列表（文本预处理示例使用）。
+- `requirements.txt` — 推荐的 Python 依赖清单（可直接 pip install -r）。
+- `NLP_Chinese.ipynb` — 中文分词示例（jieba）。
+- `NLP_chunking.ipynb` — 短语块（chunking/chinking）示例与树形展示（已改为 notebook 内嵌 SVG 渲染）。
+- `NLP_deletestop.ipynb` — 文本预处理与停用词移除示例。
+- `NLP_NER.ipynb` — 命名实体识别（NER）示例（NLTK 的 `ne_chunk`），包含实体抽取与按类型聚合的示例单元。
+- `NLP_PorterStemmer.ipynb` — PorterStemmer（词干提取）示例。
+- `NLP_stem.ipynb` — 词形还原（lemmatization）示例，使用 WordNetLemmatizer（包含 wordnet 下载逻辑）。
+- `NLP_tokensize.ipynb` — 分词与文本长度（tokenize / size）相关的示例与对比（英文/中文）。
+- `NLP_tree.ipynb` — 句法/树结构相关的额外示例（树的构建与渲染）。
+- `NLP_treebank.ipynb` — POS（词性）标注示例（已加入 averaged_perceptron_tagger 的检测/自动下载逻辑）。
+- `README.md` — 当前文档（你正在阅读的文件）。
 
-- `NLP_PorterStemmer.ipynb`
-	- 功能：展示 PorterStemmer 的用法（词干提取）。
-	- 说明：修复了缺失导入的问题，并增加了用于生成 `word_tokens` 的示例单元，确保可以直接运行词干化示例。
+每个 notebook 都尽量包含必要的运行前检测（例如 NLTK 数据资源的检测并尝试自动下载），以降低首次运行时的手动准备量。
 
-- `NLP_stem.ipynb`
-	- 功能：展示词形还原（lemmatization），使用 `WordNetLemmatizer`。
-	- 说明：Notebook 中已添加对 `wordnet`（以及 `omw-1.4`）资源的检测与自动下载逻辑，运行前无需手动下载。
+快速开始（推荐）
 
-- `NLP_treebank.ipynb`
-	- 功能：演示 POS（词性）标注，使用 Penn Treebank 标签。
-	- 说明：已添加自动检测并下载 `averaged_perceptron_tagger`（及 `punkt`）的单元；POS 标签列表已替换为带中文说明和示例的居中 Markdown 表格。
-
-- `NLP_chunking.ipynb`
-	- 功能：短语块(chinking/chunking) 演示与树状结构展示。
-	- 说明：已将树形显示从 GUI 弹窗（`tree.draw()`）替换为在 notebook 内嵌显示 SVG 的实现，适合 Jupyter 页面内查看。
-
-- `NLP_NER.ipynb`
-	- 功能：命名实体识别（NER）示例，包含 `nltk.ne_chunk` 的用法。
-	- 说明：已添加自动检测并下载 NE chunker 所需的资源（`maxent_ne_chunker` / `maxent_ne_chunker_tab`）与 `words` 语料；并新增单元以从构建好的 `tree_test` 中提取并按实体类型聚合结果（例如 PERSON、GPE、ORG 等），便于检查是否找到所有实体。
-
-- `NLP_tree.ipynb`
-	- 功能：树结构与句法分析的额外示例（按文件名推断）。
-
-- `NLP_deletestop.ipynb`
-	- 功能：演示如何移除停用词（stop words）或进行简单的文本预处理（按文件名推断）。
-
-## 运行环境与依赖
-
-- Python 3.8+
-- 建议在虚拟环境（venv / conda）中安装依赖。
-
-安装主要 Python 包（在 PowerShell 中运行）：
+1) 建议创建并激活虚拟环境（可选，但推荐）
 
 ```powershell
-pip install nltk jieba
+python -m venv .venv; .\.venv\Scripts\Activate.ps1
 ```
 
-常用 Python 依赖也可以写入 `requirements.txt`（可选）：
+2) 安装 Python 依赖（PowerShell）：
 
+```powershell
+pip install -r "requirements.txt"
+# 或者单独安装
+pip install nltk jieba ipython matplotlib
 ```
-nltk
-jieba
+
+3) 启动 Jupyter（在本目录）：
+
+```powershell
+jupyter lab
+# 或
+jupyter notebook
 ```
 
-## NLTK 数据资源
+4) 打开需要的 notebook（例如 `NLP_treebank.ipynb`），按从上到下顺序运行单元。
 
-部分 notebook 需要 NLTK 的数据资源（如 tokenizer、tagger、chunker、wordnet 等）。大多数 notebook 中已经加入了运行时检测与自动下载逻辑，但如果你在运行时仍看到 LookupError，可以在 Python 交互式环境或 notebook 中手动执行：
+NLTK 数据资源（如果遇到 LookupError）
+
+部分 notebook 使用了 NLTK 的外部数据资源（分词器、tagger、chunker、wordnet 等）。大多数 notebook 已经包含了运行时的检测与自动下载逻辑，但如果仍然出现 LookupError，你可以手动在 Python 交互式环境或 notebook 中运行：
 
 ```python
 import nltk
@@ -67,36 +61,40 @@ nltk.download('wordnet')
 nltk.download('omw-1.4')
 ```
 
-## 如何运行
+常见问题与快速修复
 
-1. 在该文件夹下启动 Jupyter Lab / Notebook：
+- 问：运行 `nltk.pos_tag` 或 `nltk.ne_chunk` 时出现 LookupError（资源缺失）。
+	- 处理：运行上述 `nltk.download(...)` 列表，或在对应 notebook 顶部先运行包含自动下载逻辑的单元。
+
+- 问：在 `NLP_Chinese.ipynb` 中打印出一个 generator 对象而非分词结果。
+	- 处理：代码中已将 `jieba.cut(text)` 转为 `list(jieba.cut(text))`，请确保你运行了修正后的单元。
+
+- 问：`tree.draw()` 弹出外部窗口导致在无头环境无法查看。
+	- 处理：已将树展示改为在 notebook 内嵌 SVG（使用 `tree._repr_svg_()` + `IPython.display.SVG`），在 Jupyter 页面中直接可见。
+
+- 问：某些可视化依赖（例如第三方增强包）缺失。
+	- 处理：这些增强包为可选项（例如 `svgling`）。如果缺少，只影响展示效果，核心功能仍可运行。你可以选择安装：
 
 ```powershell
-jupyter lab
-# 或
-jupyter notebook
+pip install svgling
 ```
 
-2. 依次打开需要的 notebook 并按顺序运行单元（从上到下）。
+扩展建议和下一步
 
-3. 如果某个单元抛出 LookupError，请先运行包含下载逻辑的单元（通常在文件开头）或手动运行上文的 `nltk.download(...)` 命令。
+- 如果你需要将 NER 结果导出：我可以添加一个 notebook 单元，把聚合后的实体保存为 CSV/JSON（示例：按实体类型计数并输出 CSV）。
+- 需要中文 NER（识别中文人名/地名/组织）的话，推荐使用 spaCy（中文模型）、Stanza 或 HanLP；这些库可以给出更好的中文 NER 结果。我可以为某一款库写示例集成单元。
 
-## 快速检查（示例）
+文件说明（逐个简短说明）
 
-- 在 `NLP_NER.ipynb` 中，已添加的最后一个单元会按实体类型打印在 `tree_test` 中找到的所有实体，例如：
-
-```
-PERSON: ['Perrotin', 'Schiaparelli']
-GPE: ['Nice', 'Lick Observatory']
-```
-
-如果你希望把实体保存为 CSV/JSON 或做更复杂的统计（频率、实体去重、上下文抽取），我可以继续为你添加导出单元或辅助函数。
-
-## 后续建议
-
-- 如果你想在本地一次性安装所有 NLTK 资源，可以运行上文列出的 `nltk.download(...)` 列表。
-- 如果需要中文实体识别（NER）示例，可以考虑集成第三方库（如 spaCy 的中文模型、Stanza、HanLP），我可以为你示例如何在 notebook 中加入这些模型的用法。
-
----
-
-如需我把 README 转成英文或生成 `requirements.txt`、或者将实体提取结果导出为 CSV，请告诉我你想要的格式和路径，我会继续修改。 
+- `custom_dict.txt` — 可以用来扩展 jieba 的用户词典，使用方法：在 notebook 中调用 `jieba.load_userdict("custom_dict.txt")`。
+- `stopwords.txt` — 停用词列表（每行一个词），`NLP_deletestop.ipynb` 演示了如何使用它们进行文本清洗。
+- `requirements.txt` — 推荐依赖，已包含基本包（请先安装到虚拟环境中）。
+- `NLP_Chinese.ipynb` — 中文分词（jieba）的典型用法：精确模式、全模式、搜索引擎模式，并示例如何处理中英文混合文本。
+- `NLP_chunking.ipynb` — chunking/chinking 的例子，并在 notebook 中以 SVG 形式渲染树形结构，便于展示句法成分。
+- `NLP_deletestop.ipynb` — 演示了如何加载停用词并从 token 列表中过滤停用词。
+- `NLP_NER.ipynb` — NLTK 的 NE 识别示例：包含 `ne_chunk` 的使用、必要数据的自动检测/下载，以及示例单元把实体按类型（PERSON、GPE、ORG 等）聚合并打印。
+- `NLP_PorterStemmer.ipynb` — 演示 Porter 词干提取器的用法，包含对输入字符串的分词和词干化结果展示。
+- `NLP_stem.ipynb` — 使用 WordNetLemmatizer 的词形还原示例，Notebook 含有对 `wordnet` 和 `omw-1.4` 的下载检查逻辑。
+- `NLP_tokensize.ipynb` — 展示 tokenization 后的长度统计、英文/中文分词差异等。
+- `NLP_tree.ipynb` — 句法树构造与渲染示例（用于研究 parse/树的构造与展示）。
+- `NLP_treebank.ipynb` — POS 标注与 Penn Treebank 标签说明；已包含对 `averaged_perceptron_tagger` 和 `punkt` 的自动下载单元。
