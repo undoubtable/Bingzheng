@@ -1,0 +1,10 @@
+# Requirements for NLP learning notebooks
+nltk>=3.6
+jieba
+matplotlib
+ipython
+
+# Optional / useful NLP packages (install only if you need them):
+# spacy
+# stanza
+# hanlp
